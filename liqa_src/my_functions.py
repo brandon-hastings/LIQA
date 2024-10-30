@@ -55,14 +55,14 @@ def parse_argument(validArgList, addAbsPath, warnMessage):
         sys.exit()
     return outList
 
-# check modules ### NOT WORKING!!
-import imp
+# check modules: updated to use importlib
+import importlib as implib
 def check_module_exists(name):
-    try:
-        imp.find_module(name)
-    except ImportError:
+    pkg = implib.util.find_spec(name)
+    if pkg is None:
         return False
-    return True
+    else:
+	    return True
 
 def check_module(module):
     x = check_module_exists(module)
